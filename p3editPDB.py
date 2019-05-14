@@ -8,13 +8,13 @@ Created on Sat Apr  6 21:16:39 2019
 #**************************************************************
 #CODE FOR PDB FILES
 #***************************************************************
-def editPDB(aminoAcidSeq, secStrSeq):
+def editPDB(aminoAcidSeq, secStrSeq, fileIndex):
 
     import os
     
     #retrieve all the rs126FileNames from the folder and write them into a file called rs126FileNames.txt
     a = open("rs126FileNames.txt", "w")
-    for path, subdirs, files in os.walk(r'C:\Users\Gayathri\BIF 724 - Python Bioinformatics\rs126'):
+    for path, subdirs, files in os.walk(r'test/'):
        for filename in files:
           a.write(filename + os.linesep) 
     a.close()
@@ -55,11 +55,11 @@ def editPDB(aminoAcidSeq, secStrSeq):
     print(dictionary) #Resource used: https://stackoverflow.com/questions/39502079/use-strings-in-a-list-as-variable-names-in-python
     
     #gets the PDB file name corresponding to dictionary value and stores it in ppdb variable
-    ppdb = PandasPdb().fetch_pdb((dictionary.get(18)))
+    ppdb = PandasPdb().fetch_pdb((dictionary.get(fileIndex)))
     ppdb.parse_sse() #parses through PDB file
     
     #saves filtered PDB file containing only ATOM and HETATM elements
-    ppdb.to_pdb(path='./final.pdb',
+    ppdb.to_pdb(path='../ProteinViewer/final.pdb',
                 records=['ATOM','HETATM'],
                 gz=False,
                 append_newline=True)
@@ -72,7 +72,7 @@ def editPDB(aminoAcidSeq, secStrSeq):
     result = re.findall(r"H+",secStrSeq)
     
     #open final.pdb file
-    c = open("final.pdb", "a")
+    c = open("../ProteinViewer/final.pdb", "a")
     
     #recordName and serName (Columns 1 and 2)
     recordName = []
@@ -108,11 +108,7 @@ def editPDB(aminoAcidSeq, secStrSeq):
     #find starting and ending index position of helices in secondary structure prediction
     positionsH = []
     positionsE = []
-
-#test example predicted amino acid sequence and predicted structure sequence:
-aminoAcidSeq = "HSKKMEEGITVNKFKPKTPYVGRCLLNTKITGDDAPGETWHMVFSHEGEIPYREGQSVGVIPDGEDKNGKPHKLRLYSIASSALGDFGDAKSVSLCVKRLIYTNDAGETIKGVCSNFLCDLKPGAEVKLTGPVGKEMLMPKDPNATIIMLGTGTGIAPFRSFLWKMFFEKHDDYKFNGLAWLFLGVPTSSSLLYKEEFEKMKEKAPDNFRLDFAVSREQTNEKGEKMYIQTRMAQYAVELWEMLKKDNTYVYMCGLKGMEKGIDDIMVSLAAAEGIDWIEYKRQLKKAEQWNVEVY"    
-secStrSeq = "---H-H---------------------------------------------------------------------H-----------------------------------------------------------H-HH-----------------------H-HHHHH------------H------------HHHHHHHHHH------H--H---------------H-HHHH-H-HH-HHHH------------------------HHHHH-------HHHHHHHHH------"    
-
+    
     for i in range(1,len(secStrSeq)):
     	if(secStrSeq[i-1] != secStrSeq[i]):
     		if(secStrSeq[i] == 'H'):
@@ -184,7 +180,7 @@ secStrSeq = "---H-H-------------------------------------------------------------
     c.close()
 
 #example of secondary structure prediction and amino acid sequence.
-test1 = "HSKKMEEGITVNKFKPKTPYVGRCLLNTKITGDDAPGETWHMVFSHEGEIPYREGQSVGVIPDGEDKNGKPHKLRLYSIASSALGDFGDAKSVSLCVKRLIYTNDAGETIKGVCSNFLCDLKPGAEVKLTGPVGKEMLMPKDPNATIIMLGTGTGIAPFRSFLWKMFFEKHDDYKFNGLAWLFLGVPTSSSLLYKEEFEKMKEKAPDNFRLDFAVSREQTNEKGEKMYIQTRMAQYAVELWEMLKKDNTYVYMCGLKGMEKGIDDIMVSLAAAEGIDWIEYKRQLKKAEQWNVEVY"
-test2 = "---H-H---------------------------------------------------------------------H-----------------------------------------------------------H-HH-----------------------H-HHHHH------------H------------HHHHHHHHHH------H--H---------------H-HHHH-H-HH-HHHH------------------------HHHHH-------HHHHHHHHH------"
+#test1 = "HSKKMEEGITVNKFKPKTPYVGRCLLNTKITGDDAPGETWHMVFSHEGEIPYREGQSVGVIPDGEDKNGKPHKLRLYSIASSALGDFGDAKSVSLCVKRLIYTNDAGETIKGVCSNFLCDLKPGAEVKLTGPVGKEMLMPKDPNATIIMLGTGTGIAPFRSFLWKMFFEKHDDYKFNGLAWLFLGVPTSSSLLYKEEFEKMKEKAPDNFRLDFAVSREQTNEKGEKMYIQTRMAQYAVELWEMLKKDNTYVYMCGLKGMEKGIDDIMVSLAAAEGIDWIEYKRQLKKAEQWNVEVY"
+#test2 = "---H-H---------------------------------------------------------------------H-----------------------------------------------------------H-HH-----------------------H-HHHHH------------H------------HHHHHHHHHH------H--H---------------H-HHHH-H-HH-HHHH------------------------HHHHH-------HHHHHHHHH------"
 
-editPDB(test1,test2)
+#editPDB(test1,test2)
