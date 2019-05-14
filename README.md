@@ -1,2 +1,2 @@
-# Python-Polypeptide-Predictor-
-Polypeptide Secondary Structure Predictor using Machine Learning in Python
+# p-cubed
+Python Polypeptide Prediction (P-cubed) is a protein secondary structure prediction program using SVM.
