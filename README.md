@@ -5,7 +5,7 @@ Python Polypeptide Prediction (p-cubed)
 
 Authors: Isaias Ardaya, Minoru Nakano, Gayathri Ravindra, Queenie Tsang
 
-#Purpose and Overview of the Project
+Purpose and Overview of the Project
 
 Purpose of our project is to predict protein secondary structures and visualize the result. Our
 product is a secondary structure protein prediction program, relying on the support vector
